@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: exam-slot-pro
+    env: docker
+    repo: https://github.com/MonikaB5/ExamSlotPro
+    branch: main
+    plan: free
+    envVars:
+      - key: PORT
+        value: 7070

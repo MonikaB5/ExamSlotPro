@@ -15,14 +15,17 @@ public class WebServer {
         ExamSlotDAO slotDAO = new ExamSlotDAO();
         BookingDAO bookingDAO = new BookingDAO();
 
+        // Get port from environment variable or use default 7070
+        int port = Integer.parseInt(System.getenv().getOrDefault("PORT", "7070"));
+
         Javalin app = Javalin.create(config -> {
             config.staticFiles.add(staticFiles -> {
                 staticFiles.directory = "/public";
                 staticFiles.location = Location.CLASSPATH;
             });
-        }).start(7070);
+        }).start(port);
 
-        System.out.println("Web server started at http://localhost:7070");
+        System.out.println("Web server started at http://localhost:" + port);
 
         // UI Routes (Handled by static files, but API routes below)
 
