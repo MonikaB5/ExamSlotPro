@@ -1,6 +1,8 @@
 package work.mavenProject.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import work.mavenProject.entity.ExamSlot;
 import work.mavenProject.util.DBUtil;
 
@@ -51,6 +53,22 @@ public class ExamSlotDAO {
 	        System.out.println("View Error");
 	    }
 	}
+
+    public List<ExamSlot> getAllSlots() {
+        List<ExamSlot> slots = new ArrayList<>();
+        try {
+            Connection con = DBUtil.getConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM examslot");
+            while (rs.next()) {
+                slots.add(new ExamSlot(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return slots;
+    }
+
     // ❌ DELETE SLOT
     public int deleteSlot(int id) {
         try {
@@ -120,6 +138,22 @@ public class ExamSlotDAO {
             System.out.println("Error loading available slots");
         }
     }
+
+    public List<ExamSlot> fetchAvailableSlots() {
+        List<ExamSlot> slots = new ArrayList<>();
+        try {
+            Connection con = DBUtil.getConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM examslot WHERE status='Available'");
+            while (rs.next()) {
+                slots.add(new ExamSlot(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return slots;
+    }
+
     public void removeExpiredSlots() {
         try {
             Connection con = DBUtil.getConnection();

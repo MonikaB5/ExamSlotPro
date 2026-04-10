@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Exam Slot Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <div class="logo-circle"></div>
+                <h2>ExamSlot<span>Pro</span></h2>
+            </div>
+            <ul class="nav-links">
+                <li class="active" onclick="showSection('users')">Users</li>
+                <li onclick="showSection('slots')">Exam Slots</li>
+                <li onclick="showSection('bookings')">Bookings</li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content">
+            <header>
+                <h1 id="page-title">User Management</h1>
+                <div class="header-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=E8C9CF&color=07203F" alt="Admin">
+                </div>
+            </header>
+
+            <!-- Users Section -->
+            <section id="users-section" class="active-section glass-card">
+                <div class="card-header">
+                    <h2>Add New User</h2>
+                </div>
+                <form id="user-form" class="animated-form">
+                    <div class="form-group">
+                        <input type="number" id="userId" placeholder="User ID" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="userName" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="userEmail" placeholder="Email Address" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Create User</button>
+                </form>
+
+                <div class="table-container">
+                    <table id="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Slots Section -->
+            <section id="slots-section" class="glass-card hidden">
+                <div class="card-header">
+                    <h2>Manage Exam Slots</h2>
+                </div>
+                <form id="slot-form" class="animated-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="number" id="slotId" placeholder="Slot ID" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="date" id="slotDate" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="time" id="slotTime" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="slotLoc" placeholder="Location" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary">Create Slot</button>
+                </form>
+
+                <div class="table-container">
+                    <table id="slots-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Bookings Section -->
+            <section id="bookings-section" class="glass-card hidden">
+                <div class="card-header">
+                    <h2>Book a Slot</h2>
+                </div>
+                <form id="booking-form" class="animated-form">
+                    <div class="form-group">
+                        <input type="number" id="bookId" placeholder="Booking ID" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="bookUserId" required>
+                            <option value="">Select User</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select id="bookSlotId" required>
+                            <option value="">Select Available Slot</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">Confirm Booking</button>
+                </form>
+
+                <div class="table-container">
+                    <table id="bookings-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>User</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">Action Successful!</div>
+
+    <script src="app.js"></script>
+</body>
+</html>

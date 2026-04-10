@@ -1,6 +1,8 @@
 package work.mavenProject.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import work.mavenProject.entity.User;
 import work.mavenProject.util.DBUtil;
 
@@ -39,6 +41,21 @@ public class UserDAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        try {
+            Connection con = DBUtil.getConnection();
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM users");
+            while (rs.next()) {
+                users.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
     public int updateUser(User u) {
