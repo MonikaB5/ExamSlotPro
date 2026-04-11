@@ -50,7 +50,6 @@ async function fetchUsers() {
 document.getElementById('user-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const user = {
-        userId: parseInt(document.getElementById('userId').value),
         name: document.getElementById('userName').value,
         email: document.getElementById('userEmail').value
     };
@@ -100,7 +99,6 @@ async function fetchSlots() {
 document.getElementById('slot-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const slot = {
-        slotId: parseInt(document.getElementById('slotId').value),
         date: document.getElementById('slotDate').value,
         time: document.getElementById('slotTime').value,
         loc: document.getElementById('slotLoc').value
@@ -166,7 +164,6 @@ async function populateBookingDropdowns() {
 document.getElementById('booking-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const booking = {
-        bookingId: parseInt(document.getElementById('bookId').value),
         userId: parseInt(document.getElementById('bookUserId').value),
         slotId: parseInt(document.getElementById('bookSlotId').value)
     };

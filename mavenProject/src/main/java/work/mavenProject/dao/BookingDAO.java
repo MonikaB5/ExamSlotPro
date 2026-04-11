@@ -36,12 +36,12 @@ public class BookingDAO {
             }
 
             
-            String sql = "INSERT INTO booking VALUES(?,?,?)";
+            // Let database auto-generate bookingId - don't specify it
+            String sql = "INSERT INTO booking (userId, slotId) VALUES(?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
 
-            ps.setInt(1, b.getBookingId());
-            ps.setInt(2, b.getUserId());
-            ps.setInt(3, b.getSlotId());
+            ps.setInt(1, b.getUserId());
+            ps.setInt(2, b.getSlotId());
 
             int result = ps.executeUpdate();
 

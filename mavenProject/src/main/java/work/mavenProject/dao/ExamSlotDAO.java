@@ -8,23 +8,24 @@ import work.mavenProject.util.DBUtil;
 
 public class ExamSlotDAO {
 
-    // ✅ ADD SLOT (with status)
+    // ✅ ADD SLOT (with status) - AUTO-INCREMENT slotId
 	public int addSlot(ExamSlot s) {
 	    try {
 	        Connection con = DBUtil.getConnection();
-	        String sql = "INSERT INTO examslot (slotId, date, time, status, location) VALUES (?,?,?,?,?)";
+	        // Let database auto-generate slotId - don't specify it
+	        String sql = "INSERT INTO examslot (date, time, status, location) VALUES (?,?,?,?)";
 	        PreparedStatement ps = con.prepareStatement(sql);
 
-	        ps.setInt(1, s.getSlotId());
-	        ps.setString(2, s.getDate());
-	        ps.setString(3, s.getTime());
-	        ps.setString(4, s.getStatus());
-	        ps.setString(5, s.getLoc());
+	        ps.setString(1, s.getDate());
+	        ps.setString(2, s.getTime());
+	        ps.setString(3, s.getStatus());
+	        ps.setString(4, s.getLoc());
 
 	        return ps.executeUpdate();
 
 	    } catch (Exception e) {
 	        System.out.println("Slot Error: " + e.getMessage());
+	        e.printStackTrace();
 	    }
 	    return 0;
 	}

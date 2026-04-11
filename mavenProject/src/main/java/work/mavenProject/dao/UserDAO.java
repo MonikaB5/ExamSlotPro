@@ -9,18 +9,19 @@ import work.mavenProject.util.DBUtil;
 public class UserDAO {
 
     public int addUser(User u) {
-        String sql = "INSERT INTO users VALUES(?,?,?)";
+        // Let database auto-generate userId - don't specify it
+        String sql = "INSERT INTO users (name, email) VALUES(?,?)";
         try {
             Connection con = DBUtil.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
 
-            ps.setInt(1, u.getUserId());
-            ps.setString(2, u.getName());
-            ps.setString(3, u.getEmail());
+            ps.setString(1, u.getName());
+            ps.setString(2, u.getEmail());
 
             return ps.executeUpdate();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("User Insert Error: " + e.getMessage());
+            e.printStackTrace();
         }
         return 0;
     }
