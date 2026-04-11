@@ -19,24 +19,24 @@ public class DatabaseInitializer {
             stmt.executeUpdate(createUsersTable);
             System.out.println("[DB] Users table created/verified");
             
-            // Create exam_slots table
-            String createSlotsTable = "CREATE TABLE IF NOT EXISTS exam_slots (" +
+            // Create examslot table
+            String createSlotsTable = "CREATE TABLE IF NOT EXISTS examslot (" +
                     "slotId SERIAL PRIMARY KEY, " +
                     "date DATE NOT NULL, " +
                     "time VARCHAR(20) NOT NULL, " +
                     "status VARCHAR(20) DEFAULT 'Available', " +
-                    "loc VARCHAR(100) NOT NULL" +
+                    "location VARCHAR(100) NOT NULL" +
                     ")";
             stmt.executeUpdate(createSlotsTable);
             System.out.println("[DB] Exam slots table created/verified");
             
-            // Create bookings table
-            String createBookingsTable = "CREATE TABLE IF NOT EXISTS bookings (" +
+            // Create booking table
+            String createBookingsTable = "CREATE TABLE IF NOT EXISTS booking (" +
                     "bookingId SERIAL PRIMARY KEY, " +
                     "userId INT NOT NULL, " +
                     "slotId INT NOT NULL, " +
                     "FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE, " +
-                    "FOREIGN KEY (slotId) REFERENCES exam_slots(slotId) ON DELETE CASCADE" +
+                    "FOREIGN KEY (slotId) REFERENCES examslot(slotId) ON DELETE CASCADE" +
                     ")";
             stmt.executeUpdate(createBookingsTable);
             System.out.println("[DB] Bookings table created/verified");
