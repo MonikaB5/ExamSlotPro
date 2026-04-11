@@ -8,6 +8,7 @@ import work.mavenProject.dao.UserDAO;
 import work.mavenProject.entity.Booking;
 import work.mavenProject.entity.ExamSlot;
 import work.mavenProject.entity.User;
+import work.mavenProject.util.DatabaseInitializer;
 
 public class WebServer {
     public static void main(String[] args) {
@@ -26,6 +27,9 @@ public class WebServer {
         }).start(port);
 
         System.out.println("Web server started at http://localhost:" + port);
+        
+        // Initialize database tables
+        DatabaseInitializer.initializeDatabase();
 
         // UI Routes (Handled by static files, but API routes below)
 
