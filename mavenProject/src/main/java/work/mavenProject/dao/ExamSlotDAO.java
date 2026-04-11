@@ -8,20 +8,32 @@ import work.mavenProject.util.DBUtil;
 
 public class ExamSlotDAO {
 
-    // ✅ ADD SLOT (with status) - AUTO-INCREMENT slotId
+    // ✅ ADD SLOT (with status) - AUTO-INCREMENT slotId - RETURNS generated ID
 	public int addSlot(ExamSlot s) {
 	    try {
 	        Connection con = DBUtil.getConnection();
 	        // Let database auto-generate slotId - don't specify it
 	        String sql = "INSERT INTO examslot (date, time, status, location) VALUES (?,?,?,?)";
-	        PreparedStatement ps = con.prepareStatement(sql);
+	        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 	        ps.setString(1, s.getDate());
 	        ps.setString(2, s.getTime());
 	        ps.setString(3, s.getStatus());
 	        ps.setString(4, s.getLoc());
 
-	        return ps.executeUpdate();
+	        int result = ps.executeUpdate();
+	        
+	        // Get the generated ID
+	        if (result > 0) {
+	            ResultSet rs = ps.getGeneratedKeys();
+	            if (rs.next()) {
+	                int generatedId = rs.getInt(1);
+	                System.out.println("[DB] Slot created with ID: " + generatedId);
+	                s.setSlotId(generatedId);
+	            }
+	        }
+	        
+	        return result;
 
 	    } catch (Exception e) {
 	        System.out.println("Slot Error: " + e.getMessage());

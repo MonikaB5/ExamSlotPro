@@ -38,12 +38,22 @@ public class BookingDAO {
             
             // Let database auto-generate bookingId - don't specify it
             String sql = "INSERT INTO booking (userId, slotId) VALUES(?,?)";
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setInt(1, b.getUserId());
             ps.setInt(2, b.getSlotId());
 
             int result = ps.executeUpdate();
+            
+            // Get the generated booking ID
+            if (result > 0) {
+                ResultSet rsKeys = ps.getGeneratedKeys();
+                if (rsKeys.next()) {
+                    int generatedId = rsKeys.getInt(1);
+                    System.out.println("[DB] Booking created with ID: " + generatedId);
+                    b.setBookingId(generatedId);
+                }
+            }
 
             
             String update = "UPDATE examslot SET status='Booked' WHERE slotId=?";

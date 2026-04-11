@@ -10,15 +10,27 @@ public class UserDAO {
 
     public int addUser(User u) {
         // Let database auto-generate userId - don't specify it
-        String sql = "INSERT INTO users (name, email) VALUES(?,?)";
+        String sql = "INSERT INTO users (id,name, email) VALUES(?,?,?)";
         try {
             Connection con = DBUtil.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, u.getName());
             ps.setString(2, u.getEmail());
 
-            return ps.executeUpdate();
+            int result = ps.executeUpdate();
+            
+            // Get the generated ID
+            if (result > 0) {
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    int generatedId = rs.getInt(1);
+                    System.out.println("[DB] User created with ID: " + generatedId);
+                    u.setUserId(generatedId);
+                }
+            }
+            
+            return result;
         } catch (Exception e) {
             System.out.println("User Insert Error: " + e.getMessage());
             e.printStackTrace();
