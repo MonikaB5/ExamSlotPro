@@ -10,7 +10,7 @@ public class UserDAO {
 
     public int addUser(User u) {
         // Let database auto-generate userId - don't specify it
-        String sql = "INSERT INTO users (id,name, email) VALUES(?,?,?)";
+        String sql = "INSERT INTO users (name, email) VALUES(?,?)";
         try {
             Connection con = DBUtil.getConnection();
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
